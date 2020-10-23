@@ -6,6 +6,9 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import com.amazonaws.services.dynamodbv2.datamodeling.S3Link;
+import com.amazonaws.services.s3.model.Region;
+
 import java.util.List;
 
 public class DynamodbUtils {
@@ -36,7 +39,7 @@ public class DynamodbUtils {
                 withCredentials(credentialsProvider)
                 .withRegion("us-west-1")
                 .build();
-        mapper = new DynamoDBMapper(dynamoDB);
+        mapper = new DynamoDBMapper(dynamoDB,credentialsProvider);
     }
 
     public <T> T getOne(Class<T> clazz,int id){
@@ -68,5 +71,9 @@ public class DynamodbUtils {
 
     public <T> void delete(T object){
         mapper.delete(object);
+    }
+
+    public S3Link createS3Link(String bucketName,String key){
+        return mapper.createS3Link(Region.US_West,bucketName, key);
     }
 }

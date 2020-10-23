@@ -3,6 +3,7 @@ package com.liming.dynamodbtest.entity;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.S3Link;
 
 import java.util.Set;
 
@@ -12,6 +13,7 @@ public class CatalogItem {
     private String title;
     private String ISBN;
     private Set<String> bookAuthors;
+    private S3Link image;
 
     @DynamoDBHashKey(attributeName = "id")
     public Integer getId() {
@@ -47,6 +49,14 @@ public class CatalogItem {
 
     public void setBookAuthors(Set<String> bookAuthors) {
         this.bookAuthors = bookAuthors;
+    }
+
+    public S3Link getImage() {
+        return image;
+    }
+
+    public void setImage(S3Link image) {
+        this.image = image;
     }
 
     @Override
